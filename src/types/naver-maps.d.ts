@@ -1,45 +1,43 @@
 // src/types/naver-maps.d.ts
 
 declare global {
-  interface Window {
-    naver: {
-      maps: {
-        LatLng: new (lat: number, lng: number) => NaverLatLng;
-        Map: new (
-          element: HTMLElement,
-          options: NaverMapOptions
-        ) => NaverMap;
-        Marker: new (options: NaverMarkerOptions) => NaverMarker;
-      };
-    };
+  namespace naver {
+    namespace maps {
+      class LatLng {
+        constructor(lat: number, lng: number);
+        lat(): number;
+        lng(): number;
+      }
+
+      interface MapOptions {
+        center: LatLng;
+        zoom: number;
+      }
+
+      class Map {
+        constructor(element: HTMLElement, options: MapOptions);
+        setCenter(center: LatLng): void;
+        setZoom(level: number): void;
+        panTo(center: LatLng, options?: { duration?: number }): void;
+      }
+
+      interface MarkerOptions {
+        position: LatLng;
+        map: Map;
+        title?: string;
+      }
+
+      class Marker {
+        constructor(options: MarkerOptions);
+        setPosition(position: LatLng): void;
+        setMap(map: Map | null): void;
+      }
+    }
   }
-}
 
-interface NaverLatLng {
-  lat(): number;
-  lng(): number;
-}
-
-interface NaverMapOptions {
-  center: NaverLatLng;
-  zoom: number;
-}
-
-interface NaverMap {
-  setCenter(center: NaverLatLng): void;
-  setZoom(level: number): void;
-  panTo(center: NaverLatLng, options?: { duration?: number }): void;
-}
-
-interface NaverMarkerOptions {
-  position: NaverLatLng;
-  map: NaverMap;
-  title?: string;
-}
-
-interface NaverMarker {
-  setPosition(position: NaverLatLng): void;
-  setMap(map: NaverMap | null): void;
+  interface Window {
+    naver: typeof naver;
+  }
 }
 
 export {};

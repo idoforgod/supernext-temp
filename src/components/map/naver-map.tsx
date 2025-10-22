@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react';
 interface NaverMapProps {
   center?: { lat: number; lng: number }; // 초기 중심 좌표
   zoom?: number; // 초기 줌 레벨 (기본값: 17)
-  onMapReady?: (map: NaverMap) => void; // 지도 초기화 완료 콜백
+  onMapReady?: (map: naver.maps.Map) => void; // 지도 초기화 완료 콜백
   className?: string;
 }
 

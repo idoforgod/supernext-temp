@@ -3,17 +3,17 @@
 import { useRef, useCallback } from 'react';
 
 interface UseMapMarkerOptions {
-  map: NaverMap | null;
+  map: naver.maps.Map | null;
 }
 
 interface UseMapMarkerReturn {
-  marker: NaverMarker | null;
+  marker: naver.maps.Marker | null;
   setMarkerPosition: (lat: number, lng: number) => void;
   removeMarker: () => void;
 }
 
 export function useMapMarker({ map }: UseMapMarkerOptions): UseMapMarkerReturn {
-  const markerRef = useRef<NaverMarker | null>(null);
+  const markerRef = useRef<naver.maps.Marker | null>(null);
 
   const setMarkerPosition = useCallback((lat: number, lng: number) => {
     if (!map || !window.naver) return;
